@@ -17,7 +17,9 @@ namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Requests.LockItem
         {
             using (IProviderSearchContext searchContext = ContentSearchManager.GetIndex(SearchDefaults.SitecoreIndex).CreateSearchContext())
             {
-                searchContext.Index.Refresh(new SitecoreIndexableItem(item), IndexingOptions.ForcedIndexing);
+                // Sitecore.Support.206645 +++
+                searchContext.Index.Update(new SitecoreIndexableItem(item).UniqueId);
+                // Sitecore.Support.206645 ---
             }
         }
     }
